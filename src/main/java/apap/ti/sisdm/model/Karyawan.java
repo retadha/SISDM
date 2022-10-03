@@ -1,11 +1,15 @@
 package apap.ti.sisdm.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -14,11 +18,11 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "karyawan")
-public class Karyawan {
+public class Karyawan implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_karyawan", nullable = false)
-    private Long id;
+    private Long idKaryawan;
 
     @Size(max = 255)
     @NotNull
@@ -30,13 +34,14 @@ public class Karyawan {
     @Column(name = "nama_belakang", nullable = false)
     private String namaBelakang;
 
-    @Size(max = 10)
     @NotNull
-    @Column(name = "jenis_kelamin", nullable = false, length = 10)
-    private String jenisKelamin;
+    @Column(name = "jenis_kelamin", nullable = false)
+    private Integer jenisKelamin;
+
 
     @NotNull
     @Column(name = "tanggal_lahir", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate tanggalLahir;
 
     @Size(max = 255)
@@ -44,52 +49,16 @@ public class Karyawan {
     @Column(name = "email", nullable = false)
     private String email;
 
-    public Long getId() {
-        return id;
-    }
+    @Transient
+    private String namaPanjang;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getNamaDepan() {
-        return namaDepan;
-    }
 
-    public void setNamaDepan(String namaDepan) {
-        this.namaDepan = namaDepan;
-    }
+    @PostLoad
+    private void onLoad() {
+        namaPanjang = namaDepan + ' ' + namaBelakang;
+    };
 
-    public String getNamaBelakang() {
-        return namaBelakang;
-    }
 
-    public void setNamaBelakang(String namaBelakang) {
-        this.namaBelakang = namaBelakang;
-    }
-
-    public String getJenisKelamin() {
-        return jenisKelamin;
-    }
-
-    public void setJenisKelamin(String jenisKelamin) {
-        this.jenisKelamin = jenisKelamin;
-    }
-
-    public LocalDate getTanggalLahir() {
-        return tanggalLahir;
-    }
-
-    public void setTanggalLahir(LocalDate tanggalLahir) {
-        this.tanggalLahir = tanggalLahir;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
 }

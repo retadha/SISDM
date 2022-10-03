@@ -35,44 +35,7 @@ public class SertifikasiKaryawan {
     @Column(name = "no_sertifikasi", length = 14)
     private String noSertifikasi;
 
-    public SertifikasiKaryawanId getId() {
-        return id;
-    }
 
-    public void setId(SertifikasiKaryawanId id) {
-        this.id = id;
-    }
 
-    public Sertifikasi getIdSertifikasi() {
-        return idSertifikasi;
-    }
-
-    public void setIdSertifikasi(Sertifikasi idSertifikasi) {
-        this.idSertifikasi = idSertifikasi;
-    }
-
-    public Karyawan getIdKaryawan() {
-        return idKaryawan;
-    }
-
-    public void setIdKaryawan(Karyawan idKaryawan) {
-        this.idKaryawan = idKaryawan;
-    }
-
-    public LocalDate getTanggalPengambilan() {
-        return tanggalPengambilan;
-    }
-
-    public void setTanggalPengambilan(LocalDate tanggalPengambilan) {
-        this.tanggalPengambilan = tanggalPengambilan;
-    }
-
-    public String getNoSertifikasi() {
-        return noSertifikasi;
-    }
-
-    public void setNoSertifikasi(String noSertifikasi) {
-        this.noSertifikasi = noSertifikasi;
-    }
 
 }

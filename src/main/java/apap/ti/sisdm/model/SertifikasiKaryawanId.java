@@ -1,6 +1,5 @@
 package apap.ti.sisdm.model;
 
-import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
@@ -9,11 +8,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @Embeddable
 public class SertifikasiKaryawanId implements Serializable {
     private static final long serialVersionUID = 2412433922327294502L;

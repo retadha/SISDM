@@ -4,8 +4,11 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -14,19 +17,14 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "presensi")
-public class Presensi {
+public class Presensi implements Serializable {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EmbeddedId
-    private PresensiId id;
+    @Column(name = "id_presensi", nullable = false)
+    private Long idPresensi;
 
-    @MapsId("idKaryawan")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_karyawan", nullable = false)
-    private Karyawan idKaryawan;
-
-    @Size(max = 255)
     @Column(name = "status")
-    private String status;
+    private Integer status;
 
     @Column(name = "tanggal")
     private LocalDate tanggal;
@@ -37,52 +35,7 @@ public class Presensi {
     @Column(name = "waktu_keluar")
     private Instant waktuKeluar;
 
-    public PresensiId getId() {
-        return id;
-    }
 
-    public void setId(PresensiId id) {
-        this.id = id;
-    }
 
-    public Karyawan getIdKaryawan() {
-        return idKaryawan;
-    }
-
-    public void setIdKaryawan(Karyawan idKaryawan) {
-        this.idKaryawan = idKaryawan;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public LocalDate getTanggal() {
-        return tanggal;
-    }
-
-    public void setTanggal(LocalDate tanggal) {
-        this.tanggal = tanggal;
-    }
-
-    public Instant getWaktuMasuk() {
-        return waktuMasuk;
-    }
-
-    public void setWaktuMasuk(Instant waktuMasuk) {
-        this.waktuMasuk = waktuMasuk;
-    }
-
-    public Instant getWaktuKeluar() {
-        return waktuKeluar;
-    }
-
-    public void setWaktuKeluar(Instant waktuKeluar) {
-        this.waktuKeluar = waktuKeluar;
-    }
 
 }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>BelajarBelajar</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+  <div class="card m-4 p-4">
+    <div class="card-body">
+      <a class="btn btn-primary" th:href="@{/karyawan/} + ${karyawan.idKaryawan} + @{/ubah}">Edit</a>
+      <a class="btn btn-primary" th:href="@{/karyawan/} + ${karyawan.idKaryawan} + @{/hapus}">Hapus</a>
+      <div class="justify-content-center">
+        <h2>Detail Karyawan</h2>
+        <br>
+        <p th:text="'Nama: ' + *{karyawan.namaPanjang}"></p>
+        <p th:if="${karyawan.jenisKelamin == 0}" th:text="'Laki - laki'"></p>
+        <p th:if="${karyawan.jenisKelamin == 1}" th:text="'Perempuan'"></p>
+        <p th:text="'Email: ' + ${karyawan.email}"></p>
+        <p th:text="'Tanggal Lahir: ' + ${#temporals.format(karyawan.tanggalLahir, 'dd MMMM yyyy')}"></p>
+        <a class="btn btn-primary" th:href="@{/karyawan}">Kembali</a>
+
+<!--        <div th:if="*{listPengajar.size() != 0}">-->
+
+<!--          <form th:action="@{/pengajar/delete}" th:object="${course}" method="POST">-->
+<!--            <input type="hidden" th:field="*{code}">-->
+<!--            <input type="hidden" th:field="*{tanggalDimulai}">-->
+<!--            <input type="hidden" th:field="*{tanggalBerakhir}">-->
+<!--            <table class="table">-->
+<!--              <thead>-->
+<!--              <tr>-->
+<!--                <th>No</th>-->
+<!--                <th>No Pengajar</th>-->
+<!--                <th>Nama</th>-->
+<!--                <th>Jenis Pengajar</th>-->
+<!--                <th>Ubah</th>-->
+<!--                <th>Hapus</th>-->
+<!--              </tr>-->
+<!--              </thead>-->
+<!--              <tbody>-->
+<!--              <tr th:each="pengajar, iterationStatus : ${listPengajar}"-->
+<!--                  th:style="${iterationStatus.even} ? 'font-weight:bold;'">-->
+<!--                <td th:text="${iterationStatus.count}"></td>-->
+<!--                <td th:text="${pengajar.noPengajar}"></td>-->
+<!--                <td th:text="${pengajar.namaPengajar}"></td>-->
+<!--                <td th:if="${pengajar.isPengajarUniversitas}">Pekerjaan: Non-Dosen Universitas</td>-->
+<!--                <td th:unless="${pengajar.isPengajarUniversitas}">Pekerjaan: Dosen Universitas</td>-->
+<!--                <td>-->
+<!--                  <a class="btn btn-sm btn-primary" th:href="@{/pengajar/update/} + ${pengajar.noPengajar}">Update-->
+<!--                  </a>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                  <input class="form-check-input" type="checkbox"-->
+<!--                         th:field="*{listPengajar}"-->
+<!--                         th:value="${pengajar.noPengajar}"-->
+<!--                         id="flexCheckDefault">-->
+<!--                </td>-->
+<!--              </tr>-->
+<!--              </tbody>-->
+<!--            </table>-->
+<!--            <input type="submit" value="Delete yang dipilih" class="btn btn-danger">-->
+<!--          </form>-->
+
+<!--        </div>-->
+<!--        <div th:unless="*{listPengajar.size() != 0}">-->
+<!--          <h2 th:text="'Tidak ada pengajar'"></h2>-->
+
+<!--        </div>-->
+        <br>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
