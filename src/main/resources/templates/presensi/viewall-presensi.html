@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Presensi</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+  <nav th:replace="fragments/fragment :: navbar"></nav>
+  <div class="container">
+    <div class="card m-4 p-4">
+      <div class="card-body">
+        <div class="justify-content-center">
+          <h2>Daftar Presensi</h2>
+          <br>
+          <a th:href="@{/presensi/tambah}" class="btn btn-primary">Tambah presensi</a>
+
+          <br>
+          <table class="table">
+            <thead>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Tanggal</th>
+            <th>Status</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+            <tr th:each="presensi, iterationStatus : ${listPresensi}">
+              <td th:text="${iterationStatus.count}"></td>
+              <td th:text="*{presensi.namaKaryawan}"></td>
+                <td th:text="${presensi.tanggal}"></td>
+                <td th:if="${presensi.status == 0}" th:text="'Terlambat'"></td>
+                <td th:if="${presensi.status == 1}" th:text="'Tepat Waktu'"></td>
+              <td>
+<!--                  @{/course/view(code=${course.code})}"-->
+                <a class="btn btn-primary" th:href="@{/presensi/} + ${presensi.idPresensi}">Detail</a>
+<!--                  <a class="btn btn-primary" href="#">Detail</a>-->
+
+              </td>
+
+
+            </tbody>
+          </table>
+          <br>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

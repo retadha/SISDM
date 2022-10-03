@@ -52,12 +52,15 @@ public class Karyawan implements Serializable {
     @Transient
     private String namaPanjang;
 
-
+    @OneToMany(mappedBy = "karyawan")
+    private Set<Presensi> listPresensi = new LinkedHashSet<>();
 
     @PostLoad
     private void onLoad() {
         namaPanjang = namaDepan + ' ' + namaBelakang;
     };
+
+
 
 
 

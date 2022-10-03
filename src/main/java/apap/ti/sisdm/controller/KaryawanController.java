@@ -72,6 +72,13 @@ public class KaryawanController {
         return "karyawan/delete-karyawan";
     }
 
+    @GetMapping("/filter-sertifikasi")
+    private String filterKaryawan(Model model) {
+        List<Karyawan> listKaryawan = karyawanService.getListKaryawan();
+        model.addAttribute("listKaryawan", listKaryawan);
+        return "karyawan/filter-karyawan";
+    }
+
 
 
 }

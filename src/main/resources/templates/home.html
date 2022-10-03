@@ -13,18 +13,18 @@
             <h2>Selamat datang di SISDM</h2>
             <div class="d-flex justify-content-center">
                 <a th:href="@{/karyawan}" class="mx-2 btn btn-primary">Karyawan</a>
-                <a href="#" class="mx-2 btn btn-outline-primary">Presensi</a>
+                <a th:href="@{/presensi}" class="mx-2 btn btn-outline-primary">Presensi</a>
             </div>
 
             <div class="my-3 d-flex justify-content-center">
-                <a href="#" class="mx-2 btn btn-primary">Tambah Tugas</a>
+                <a th:href="@{/tambah-tugas}" class="mx-2 btn btn-primary">Tambah Tugas</a>
                 <div class="dropdown show">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Filter
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="#">Cari tugas berdasarkan karyawan yang memiliki status tertentu</a>
-                        <a class="dropdown-item" href="#">Cari karyawan berdasarkan sertifikat</a>
+                        <a class="dropdown-item" th:href="@{/filter-sertifikasi}">Cari karyawan berdasarkan sertifikat</a>
                     </div>
                 </div>
             </div>
