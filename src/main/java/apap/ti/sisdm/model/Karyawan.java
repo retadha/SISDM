@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -53,12 +54,17 @@ public class Karyawan implements Serializable {
     private String namaPanjang;
 
     @OneToMany(mappedBy = "karyawan")
-    private Set<Presensi> listPresensi = new LinkedHashSet<>();
+    private List<Presensi> listPresensi;
+
+    @OneToMany(mappedBy = "idKaryawan")
+    private List<SertifikasiKaryawan> listSertifikasiKaryawan;
 
     @PostLoad
     private void onLoad() {
         namaPanjang = namaDepan + ' ' + namaBelakang;
     };
+
+
 
 
 

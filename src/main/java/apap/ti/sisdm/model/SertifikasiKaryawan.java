@@ -1,6 +1,7 @@
 package apap.ti.sisdm.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -29,6 +30,7 @@ public class SertifikasiKaryawan {
     private Karyawan idKaryawan;
 
     @Column(name = "tanggal_pengambilan")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate tanggalPengambilan;
 
     @Size(max = 14)

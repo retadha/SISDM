@@ -51,10 +51,16 @@ public class Presensi implements Serializable {
 
     @Transient
     private String namaKaryawan;
+
+    @OneToMany(mappedBy = "idPresensi")
+    private Set<Tugas> listTugas = new LinkedHashSet<>();
+
     @PostLoad
     private void onLoad() {
         namaKaryawan = karyawan.getNamaPanjang();
     };
+
+
 
 
 

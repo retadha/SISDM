@@ -12,27 +12,23 @@
     <div class="card m-4 p-4">
       <div class="card-body">
         <div class="justify-content-center">
-          <h2>Daftar Karyawan</h2>
+          <h2>Daftar Tugas</h2>
           <br>
           <a th:href="@{/}" class="btn btn-primary">Kembali</a>
           <br>
           <table class="table">
             <thead>
             <th>No</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Action</th>
+            <th>Nama Tugas</th>
+            <th>Story Point</th>
+            <th>Deskripsi</th>
             </thead>
             <tbody>
-            <tr th:each="karyawan, iterationStatus : ${listKaryawan}">
-              <td th:text="${karyawan.idKaryawan}"></td>
-              <td th:text="*{karyawan.namaPanjang}"></td>
-              <td th:text="${karyawan.email}"></td>
-              <td>
-<!--                  @{/course/view(code=${course.code})}"-->
-                <a class="btn btn-primary" th:href="@{/karyawan/} + ${karyawan.idKaryawan}">Detail</a>
-              </td>
-
+            <tr th:each="tugas, iterationStatus : ${listTugas}">
+                <td th:text="${iterationStatus.count}"></td>
+              <td th:text="${tugas.nama}"></td>
+              <td th:text="${tugas.storyPoint}"></td>
+                <td th:text="${tugas.deskripsi}"></td>
 
             </tbody>
           </table>

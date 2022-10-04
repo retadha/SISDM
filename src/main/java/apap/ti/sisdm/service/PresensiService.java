@@ -2,6 +2,7 @@ package apap.ti.sisdm.service;
 
 
 import apap.ti.sisdm.model.Presensi;
+import apap.ti.sisdm.model.Tugas;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface PresensiService {
 
     Presensi deletePresensi(Presensi presensi);
 
-
+    List<Tugas> getListTugasById(Presensi id);
 }

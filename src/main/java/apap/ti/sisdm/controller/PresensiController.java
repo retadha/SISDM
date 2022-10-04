@@ -2,6 +2,7 @@ package apap.ti.sisdm.controller;
 
 import apap.ti.sisdm.model.Karyawan;
 import apap.ti.sisdm.model.Presensi;
+import apap.ti.sisdm.model.Tugas;
 import apap.ti.sisdm.service.KaryawanService;
 import apap.ti.sisdm.service.PresensiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,9 @@ public class PresensiController {
     @GetMapping("presensi/{id}")
     public String viewDetailPresensi(@PathVariable String id, Model model) {
         Presensi presensi = presensiService.getPresensiById(Long.parseLong(id));
+        List<Tugas> listTugas = presensiService.getListTugasById(presensi);
         model.addAttribute("presensi", presensi);
+        model.addAttribute("listTugas", listTugas);
 
         return "presensi/view-presensi";
     }

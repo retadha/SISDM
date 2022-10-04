@@ -9,6 +9,7 @@
 <div class="container">
   <div class="card m-4 p-4">
     <div class="card-body">
+      <a class="btn btn-primary" th:href="@{/presensi}">Kembali</a>
       <a class="btn btn-primary" th:href="@{/presensi/} + ${presensi.idPresensi} + @{/ubah}">Edit</a>
       <a class="btn btn-primary" th:href="@{/presensi/} + ${presensi.idPresensi} + @{/hapus}">Hapus</a>
       <div class="justify-content-center">
@@ -21,7 +22,30 @@
         <p th:if="${presensi.status == 0}" th:text="'Status: Terlambat'"></p>
         <p th:if="${presensi.status == 1}" th:text="'Status: Tepat Waktu'"></p>
 
-        <a class="btn btn-primary" th:href="@{/presensi}">Kembali</a>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Deskripsi</th>
+            <th>Story Point</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="tugas, iterationStatus : ${listTugas}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${tugas.nama}"></td>
+            <td th:text="${tugas.deskripsi}"></td>
+            <td th:text="${tugas.storyPoint}"></td>
+            <td th:if="${tugas.status == 0}" th:text="'Dimulai'"></td>
+            <td th:if="${tugas.status == 1}" th:text="'Dikerjakan'"></td>
+            <td th:if="${tugas.status == 2}" th:text="'Selesai'"></td>
+
+          </tr>
+          </tbody>
+        </table>
+
 
 <!--        <div th:if="*{listPengajar.size() != 0}">-->
 

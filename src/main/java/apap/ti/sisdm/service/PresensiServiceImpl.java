@@ -2,7 +2,9 @@ package apap.ti.sisdm.service;
 
 import apap.ti.sisdm.model.Karyawan;
 import apap.ti.sisdm.model.Presensi;
+import apap.ti.sisdm.model.Tugas;
 import apap.ti.sisdm.repository.PresensiRepository;
+import apap.ti.sisdm.repository.TugasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class PresensiServiceImpl implements PresensiService{
     @Autowired
     PresensiRepository presensiDb;
+
+    @Autowired
+    TugasRepository tugasDb;
 
     @Override
     public List<Presensi> getListPresensi() {
@@ -47,5 +52,9 @@ public class PresensiServiceImpl implements PresensiService{
         return presensi;
     }
 
+    @Override
+    public List<Tugas> getListTugasById(Presensi id) {
+        return tugasDb.findByIdPresensi(id);
+    }
 
 }

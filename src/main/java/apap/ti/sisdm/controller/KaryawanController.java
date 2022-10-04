@@ -1,6 +1,7 @@
 package apap.ti.sisdm.controller;
 
 import apap.ti.sisdm.model.Karyawan;
+import apap.ti.sisdm.model.SertifikasiKaryawan;
 import apap.ti.sisdm.service.KaryawanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,8 +44,10 @@ public class KaryawanController {
     @GetMapping("karyawan/{id}")
     public String viewDetailKaryawan(@PathVariable String id, Model model) {
         Karyawan karyawan = karyawanService.getKaryawanById(Long.parseLong(id));
-        model.addAttribute("karyawan", karyawan);
+        List<SertifikasiKaryawan> listSertifikasiKaryawan = karyawanService.getListSertifikasiById(karyawan);
 
+        model.addAttribute("karyawan", karyawan);
+        model.addAttribute("listSertifikasiKaryawan", listSertifikasiKaryawan);
         return "karyawan/view-karyawan";
     }
 

@@ -21,12 +21,12 @@ public class TugasController {
     @Autowired
     private TugasService tugasService;
 
-//    @GetMapping("/tugas")
-//    private String listtugas(Model model) {
-//        List<tugas> listtugas = tugasService.getListtugas();
-//        model.addAttribute("listtugas", listtugas);
-//        return "tugas/viewall-tugas";
-//    }
+    @GetMapping("/filter-tugas")
+    private String fiterTugas(Model model) {
+        List<Tugas> listTugas = tugasService.getListTugas();
+        model.addAttribute("listTugas", listTugas);
+        return "tugas/filter-tugas";
+    }
 
     @GetMapping("/tambah-tugas")
     private String addtugasFormPage(Model model) {

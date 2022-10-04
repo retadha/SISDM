@@ -1,6 +1,7 @@
 package apap.ti.sisdm.service;
 
 import apap.ti.sisdm.model.Karyawan;
+import apap.ti.sisdm.model.SertifikasiKaryawan;
 
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface KaryawanService {
     Karyawan updateKaryawan(Karyawan karyawan);
 
     Karyawan deleteKaryawan(Karyawan karyawan);
+
+    List<SertifikasiKaryawan> getListSertifikasiById(Karyawan id);
 }
