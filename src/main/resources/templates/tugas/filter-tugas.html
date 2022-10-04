@@ -12,6 +12,28 @@
     <div class="card m-4 p-4">
       <div class="card-body">
         <div class="justify-content-center">
+          <h1>Filter Tugas berdasarkan Nama Karyawan dan Status Tugas</h1>
+          <form th:action="@{/filter-tugas}" method="POST">
+            Nama
+            <select name="id-karyawan" class="form-control">
+              <option value="" th:text="'Nama karyawan'">
+              <option th:each="karyawan : ${listKaryawan}" th:value="${karyawan.idKaryawan}" th:text="${karyawan.namaPanjang}">
+            </select>
+            <br><br>
+
+            Status
+            <select name="status">
+              class="form-control">
+              <option th:value="0" th:text="Dimulai"></option>
+              <option th:value="1" th:text="Dikerjakan"></option>
+              <option th:value="2" th:text="Selesai"></option>
+
+            </select>
+            <br><br>
+
+            <button class="btn btn-primary" type="submit" name="save">Cari</button>
+          </form>
+
           <h2>Daftar Tugas</h2>
           <br>
           <a th:href="@{/}" class="btn btn-primary">Kembali</a>

@@ -13,4 +13,6 @@ public interface TugasService {
     Tugas updateTugas(Tugas tugas);
 
     Tugas deleteTugas(Tugas tugas);
+
+    List<Tugas> getListTugasByIdKaryawanAndStatus(Long idKaryawan, Integer status);
 }

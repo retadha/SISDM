@@ -46,5 +46,10 @@ public class TugasServiceImpl implements TugasService{
         return tugas;
     }
 
+    @Override
+    public List<Tugas> getListTugasByIdKaryawanAndStatus(Long idKaryawan, Integer status) {
+        return tugasDb.findByIdKaryawanAndStatus(idKaryawan, status);
+    }
+
 
 }
