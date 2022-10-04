@@ -12,7 +12,17 @@
     <div class="card m-4 p-4">
       <div class="card-body">
         <div class="justify-content-center">
-          <h2>Daftar Karyawan</h2>
+            <h1>Filter Karyawan berdasarkan Sertifikat</h1>
+            <form th:action="@{/filter-sertifikasi}" method="POST">
+                Pilih Sertifikasi
+                <select name="id-sertifikasi" class="form-control">
+                    <option value="" th:text="'Sertifikasi'">
+                    <option th:each="sertifikasi : ${listSertifikasi}" th:value="${sertifikasi.idSertifikasi}" th:text="${sertifikasi.nama}">
+                </select>
+                <br><br>
+                <button class="btn btn-primary" type="submit" name="save">Simpan</button>
+            </form>
+          <h2>Data Karyawan</h2>
           <br>
           <a th:href="@{/}" class="btn btn-primary">Kembali</a>
           <br>

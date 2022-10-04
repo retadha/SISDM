@@ -1,24 +1,28 @@
 package apap.ti.sisdm.controller;
 
 import apap.ti.sisdm.model.Karyawan;
+import apap.ti.sisdm.model.Sertifikasi;
 import apap.ti.sisdm.model.SertifikasiKaryawan;
 import apap.ti.sisdm.service.KaryawanService;
+import apap.ti.sisdm.service.SertifikasiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class KaryawanController {
     @Qualifier("karyawanServiceImpl")
     @Autowired
     private KaryawanService karyawanService;
+
+    @Qualifier("sertifikasiServiceImpl")
+    @Autowired
+    private SertifikasiService sertifikasiService;
 
     @GetMapping("/karyawan")
     private String listKaryawan(Model model) {
@@ -78,9 +82,29 @@ public class KaryawanController {
     @GetMapping("/filter-sertifikasi")
     private String filterKaryawan(Model model) {
         List<Karyawan> listKaryawan = karyawanService.getListKaryawan();
+        List<Sertifikasi> listSertifikasi = sertifikasiService.getListSertifikasi();
+
+        model.addAttribute("listSertifikasi", listSertifikasi);
+        model.addAttribute("sertifikasi", new Sertifikasi());
         model.addAttribute("listKaryawan", listKaryawan);
         return "karyawan/filter-karyawan";
     }
+
+    @PostMapping("/filter-sertifikasi")
+    private String filterKaryawanSubmitPage(@RequestParam(value = "id-sertifikasi") String idSertifikasi, Model model) {
+        List<Karyawan> listKaryawan;
+        Optional<Sertifikasi> sertifikasi = sertifikasiService.getSertifikasiById(Long.parseLong(idSertifikasi));
+
+        listKaryawan = karyawanService.getListKaryawanByIdSertifikasi(sertifikasi);
+        List<Sertifikasi> listSertifikasi = sertifikasiService.getListSertifikasi();
+
+        model.addAttribute("listSertifikasi", listSertifikasi);
+        model.addAttribute("sertifikasi", new Sertifikasi());
+        model.addAttribute("listKaryawan", listKaryawan);
+        return "karyawan/filter-karyawan";
+    }
+
+
 
 
 

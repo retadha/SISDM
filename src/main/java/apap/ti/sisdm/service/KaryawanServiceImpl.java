@@ -1,6 +1,7 @@
 package apap.ti.sisdm.service;
 
 import apap.ti.sisdm.model.Karyawan;
+import apap.ti.sisdm.model.Sertifikasi;
 import apap.ti.sisdm.model.SertifikasiKaryawan;
 import apap.ti.sisdm.repository.KaryawanRepository;
 import apap.ti.sisdm.repository.SertifikasiKaryawanRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +56,17 @@ public class KaryawanServiceImpl implements KaryawanService{
     @Override
     public List<SertifikasiKaryawan> getListSertifikasiById(Karyawan id) {
         return sertifikasiKaryawanDb.findByIdKaryawan(id);
+    }
+
+    @Override
+    public List<Karyawan> getListKaryawanByIdSertifikasi(Optional<Sertifikasi> id) {
+        List<Karyawan> listKaryawan = new ArrayList<>();
+
+        List<SertifikasiKaryawan> listSertifikasiKaryawan = sertifikasiKaryawanDb.findByIdSertifikasi(id);
+        for(SertifikasiKaryawan sertifikasiKaryawan: listSertifikasiKaryawan) {
+            listKaryawan.add(sertifikasiKaryawan.getIdKaryawan());
+        }
+        return listKaryawan;
     }
 
 }
