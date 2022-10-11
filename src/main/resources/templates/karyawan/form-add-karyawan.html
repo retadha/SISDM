@@ -25,7 +25,7 @@
                         <input class="form-control" type="text" name="email"/>
 
                         Tanggal Lahir: <br>
-                        <input required class="form-control" type="date" name="tanggalLahir" />
+                        <input class="form-control" type="date" name="tanggalLahir" />
                         <br><br>
                         Jenis Kelamin
                         <select name="jenisKelamin">
@@ -33,6 +33,30 @@
                             <option th:value="0" th:text="Laki-laki"></option>
                             <option th:value="1" th:text="Pendidikan"></option>
                         </select>
+                        <br><br>
+
+                        <table class="table">
+
+                            <tbody>
+                            <tr th:each="sertifikasiKaryawan, iterationStatus : *{listSertifikasiKaryawan}">
+                                <td>
+                                    <select th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].id.idSertifikasi}" class="form-control">
+                                        <option th:each="sertifikasi, iterationStatus2 : ${listSertifikasi}" th:value="${sertifikasi.idSertifikasi}" th:text="${sertifikasi.nama}"></option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="date" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].tanggalPengambilan}">
+                                    <input type="text" th:value = "ABC" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].noSertifikasi}" hidden>
+                                </td>
+                                <td>                                                                                 
+                                    <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit" name="deleteRow">
+                                        Hapus
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-primary" type="submit" name="addRow">Tambah Sertifikasi</button>
                         <br><br>
 
                         <button class="btn btn-primary" type="submit" name="save">Simpan</button>

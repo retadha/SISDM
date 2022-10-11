@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface SertifikasiKaryawanService {
     List<SertifikasiKaryawan> getListSertifikasiKaryawan();
+
+    SertifikasiKaryawan addSertifikasiKaryawan(SertifikasiKaryawan sertifikasiKaryawan);
 }

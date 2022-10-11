@@ -1,5 +1,6 @@
 package apap.ti.sisdm.service;
 
+import apap.ti.sisdm.model.Karyawan;
 import apap.ti.sisdm.model.Sertifikasi;
 import apap.ti.sisdm.model.SertifikasiKaryawan;
 import apap.ti.sisdm.repository.SertifikasiKaryawanRepository;
@@ -22,6 +23,11 @@ public class SertifikasiKaryawanServiceImpl implements SertifikasiKaryawanServic
     @Override
     public List<SertifikasiKaryawan> getListSertifikasiKaryawan() {
         return sertifikasiKaryawanDb.findAll();
+    }
+
+    @Override
+    public SertifikasiKaryawan addSertifikasiKaryawan(SertifikasiKaryawan sertifikasiKaryawan) {
+        return sertifikasiKaryawanDb.save(sertifikasiKaryawan);
     }
 
 
