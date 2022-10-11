@@ -53,7 +53,7 @@ public class Presensi implements Serializable {
     @Transient
     private String namaKaryawan;
 
-    @OneToMany(mappedBy = "idPresensi")
+    @OneToMany(mappedBy = "idPresensi", cascade = CascadeType.REMOVE)
     private List<Tugas> listTugas;
 
     @PostLoad
