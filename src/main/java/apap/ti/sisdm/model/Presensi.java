@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -53,7 +54,7 @@ public class Presensi implements Serializable {
     private String namaKaryawan;
 
     @OneToMany(mappedBy = "idPresensi")
-    private Set<Tugas> listTugas = new LinkedHashSet<>();
+    private List<Tugas> listTugas;
 
     @PostLoad
     private void onLoad() {

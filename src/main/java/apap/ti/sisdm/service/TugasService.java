@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface TugasService {
     List<Tugas> getListTugas();
+
+    List<Tugas> getListAvailableTugas();
     void addTugas(Tugas tugas);
 
     Tugas getTugasById(Long id);

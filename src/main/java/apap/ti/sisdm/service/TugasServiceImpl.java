@@ -21,6 +21,15 @@ public class TugasServiceImpl implements TugasService{
     }
 
     @Override
+    public List<Tugas> getListAvailableTugas() {
+        return tugasDb.findByIdPresensiNull();
+    }
+
+
+
+
+
+    @Override
     public void addTugas(Tugas tugas) {
         tugasDb.save(tugas);
     }

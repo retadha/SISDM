@@ -46,7 +46,7 @@
                                 </td>
                                 <td>
                                     <input type="date" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].tanggalPengambilan}">
-                                    <input type="text" th:value = "ABC" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].noSertifikasi}" hidden>
+                                    <input type="text" value = "ABC" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].noSertifikasi}" hidden>
                                 </td>
                                 <td>                                                                                 
                                     <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit" name="deleteRow">

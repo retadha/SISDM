@@ -27,8 +27,8 @@ public class PresensiServiceImpl implements PresensiService{
     }
 
     @Override
-    public void addPresensi(Presensi presensi) {
-        presensiDb.save(presensi);
+    public Presensi addPresensi(Presensi presensi) {
+        return presensiDb.save(presensi);
     }
 
     @Override
