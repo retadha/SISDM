@@ -28,8 +28,8 @@ public class KaryawanServiceImpl implements KaryawanService{
     }
 
     @Override
-    public void addKaryawan(Karyawan karyawan) {
-        karyawanDb.save(karyawan);
+    public Karyawan addKaryawan(Karyawan karyawan) {
+        return karyawanDb.save(karyawan);
     }
 
     @Override

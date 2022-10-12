@@ -1,6 +1,8 @@
 package apap.ti.sisdm.model;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -53,10 +55,10 @@ public class Karyawan implements Serializable {
     @Transient
     private String namaPanjang;
 
-    @OneToMany(mappedBy = "karyawan")
+    @OneToMany(mappedBy = "karyawan", cascade = CascadeType.REMOVE)
     private List<Presensi> listPresensi;
 
-    @OneToMany(mappedBy = "idKaryawan")
+    @OneToMany(mappedBy = "idKaryawan", cascade = CascadeType.REMOVE)
     private List<SertifikasiKaryawan> listSertifikasiKaryawan;
 
     @PostLoad

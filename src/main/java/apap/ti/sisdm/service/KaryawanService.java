@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface KaryawanService {
     List<Karyawan> getListKaryawan();
-    void addKaryawan(Karyawan karyawan);
+    Karyawan addKaryawan(Karyawan karyawan);
 
     Karyawan getKaryawanById(Long id);
 

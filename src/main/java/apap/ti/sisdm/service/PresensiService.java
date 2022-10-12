@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PresensiService {
     List<Presensi> getListPresensi();
-    void addPresensi(Presensi presensi);
+    Presensi addPresensi(Presensi presensi);
 
     Presensi getPresensiById(Long id);
 

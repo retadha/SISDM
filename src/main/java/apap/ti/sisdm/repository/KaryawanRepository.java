@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface KaryawanRepository extends JpaRepository<Karyawan, Long> {
     Optional<Karyawan> findByIdKaryawan(Long idKaryawan);
+
 }
