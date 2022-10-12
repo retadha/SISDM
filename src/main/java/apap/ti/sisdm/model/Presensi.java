@@ -38,11 +38,11 @@ public class Presensi implements Serializable {
     private LocalDate tanggal;
 
     @Column(name = "waktu_masuk")
-    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime waktuMasuk;
 
     @Column(name = "waktu_keluar")
-    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime waktuKeluar;
 
 

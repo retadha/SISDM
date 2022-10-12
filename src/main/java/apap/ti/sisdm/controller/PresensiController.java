@@ -137,11 +137,14 @@ public class PresensiController {
     public String updatePresensiFormPage(@PathVariable String id, Model model) {
         Presensi presensi = presensiService.getPresensiById(Long.parseLong(id));
 
+
         model.addAttribute("presensi", presensi);
         model.addAttribute("karyawan", presensi.getKaryawan());
 
         return "presensi/form-update-presensi";
     }
+
+
 
     @PostMapping("presensi/{id}/ubah")
     public String updatePresensiSubmitPage(@ModelAttribute Presensi presensi, Model model) {
