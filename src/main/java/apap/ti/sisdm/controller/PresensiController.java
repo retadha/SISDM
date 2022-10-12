@@ -59,7 +59,10 @@ public class PresensiController {
     private String addPresensiSubmitPage(@ModelAttribute Presensi presensi, Model model) {
         Presensi savedPresensi = presensiService.addPresensi(presensi);
 
+        if (presensi.getListTugas() == null || presensi.getListTugas().size() == 0) {
+            presensi.setListTugas(new ArrayList<>());
 
+        }
         for (Tugas tugas: presensi.getListTugas()) {
             Long idTugas = tugas.getIdTugas();
             Integer status = tugas.getStatus();
@@ -191,6 +194,9 @@ public class PresensiController {
 
     @PostMapping(value = "presensi/{id}/ubah", params = {"save"})
     public String updatePresensiSubmitPage(@ModelAttribute Presensi presensi, Model model) {
+        if (presensi.getListTugas() == null || presensi.getListTugas().size() == 0) {
+            presensi.setListTugas(new ArrayList<>());
+        }
 
         Presensi savedPresensi = presensiService.updatePresensi(presensi);
 
