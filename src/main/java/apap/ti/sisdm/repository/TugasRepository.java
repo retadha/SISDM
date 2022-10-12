@@ -18,6 +18,13 @@ public interface TugasRepository extends JpaRepository<Tugas, Long> {
     @Query("SELECT t FROM Karyawan k LEFT JOIN Presensi p ON k.idKaryawan = p.karyawan.idKaryawan LEFT JOIN Tugas t ON p.idPresensi = t.idPresensi.idPresensi WHERE k.idKaryawan = :idKaryawan AND t.status = :status")
     List<Tugas> findByIdKaryawanAndStatus(Long idKaryawan, Integer status);
 
+    @Query("select t from Tugas t where t.idPresensi is null")
+    List<Tugas> findByIdPresensiNull();
+
+
+
+
+
 
 
 

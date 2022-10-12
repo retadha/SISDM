@@ -1,5 +1,6 @@
 package apap.ti.sisdm.service;
 
+import apap.ti.sisdm.model.Presensi;
 import apap.ti.sisdm.model.Tugas;
 import apap.ti.sisdm.repository.TugasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,15 @@ public class TugasServiceImpl implements TugasService{
     public List<Tugas> getListTugas() {
         return tugasDb.findAll();
     }
+
+    @Override
+    public List<Tugas> getListAvailableTugas() {
+        return tugasDb.findByIdPresensiNull();
+    }
+
+
+
+
 
     @Override
     public void addTugas(Tugas tugas) {
@@ -49,6 +59,11 @@ public class TugasServiceImpl implements TugasService{
     @Override
     public List<Tugas> getListTugasByIdKaryawanAndStatus(Long idKaryawan, Integer status) {
         return tugasDb.findByIdKaryawanAndStatus(idKaryawan, status);
+    }
+
+    @Override
+    public List<Tugas> getListTugasByIdPresensi(Presensi idPresensi) {
+        return tugasDb.findByIdPresensi(idPresensi);
     }
 
 

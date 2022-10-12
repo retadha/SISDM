@@ -16,7 +16,7 @@
           <form th:action="@{/filter-tugas}" method="POST">
             Nama
             <select name="id-karyawan" class="form-control">
-              <option value="" th:text="'Nama karyawan'">
+              <option value="" th:text="'Nama karyawan'" >
               <option th:each="karyawan : ${listKaryawan}" th:value="${karyawan.idKaryawan}" th:text="${karyawan.namaPanjang}">
             </select>
             <br><br>

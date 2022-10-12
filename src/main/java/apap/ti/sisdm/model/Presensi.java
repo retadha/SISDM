@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -37,11 +38,11 @@ public class Presensi implements Serializable {
     private LocalDate tanggal;
 
     @Column(name = "waktu_masuk")
-    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime waktuMasuk;
 
     @Column(name = "waktu_keluar")
-    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime waktuKeluar;
 
 
@@ -52,8 +53,8 @@ public class Presensi implements Serializable {
     @Transient
     private String namaKaryawan;
 
-    @OneToMany(mappedBy = "idPresensi")
-    private Set<Tugas> listTugas = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idPresensi", cascade = CascadeType.REMOVE)
+    private List<Tugas> listTugas;
 
     @PostLoad
     private void onLoad() {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
-  <title>BelajarBelajar</title>
+  <title>SISDM</title>
   <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"></head>-->
   <object th:include="fragments/fragment :: css" th:remove="tag"></object>
   <object th:include="fragments/fragment :: js" th:remove="tag"></object>
@@ -11,7 +11,7 @@
   <div class="card m-4 p-4">
     <div class="card-body">
       <div class="justify-content-center">
-        <h2>Update Course</h2>
+        <h2>Update Presensi</h2>
         <br>
         <form th:action="@{/presensi/} + ${presensi.idPresensi} + '/ubah'" th:object="${presensi}" method="POST">
 
@@ -38,9 +38,38 @@
 
           Status
           <select name="status" class="form-control" disabled="disabled">
-            <option th:value="0" th:text="'Terlambat'"></option>
-            <option th:value="1" th:text="'Tepat Waktu'"></option>
+            <option th:selected="${presensi.status == 0}" th:value="0" th:text="'Terlambat'"></option>
+            <option th:selected="${presensi.status == 1}" th:value="1" th:text="'Tepat Waktu'"></option>
           </select>
+          <br><br>
+
+          <table class="table">
+            <tbody>
+            <tr th:each="tugas, iterationStatus : *{listTugas}">
+              <td>
+                <select th:field="*{listTugas[__${iterationStatus.index}__].idTugas}" class="form-control">
+                  <option th:each="tugasEx, iterationStatus2 : ${listTugasExisting}"
+                          th:value="${tugasEx.idTugas}"
+                          th:text="${tugasEx.nama}">
+                  </option>
+                </select>
+              </td>
+              <td>
+                <select th:field="*{listTugas[__${iterationStatus.index}__].status}" class="form-control">
+                  <option th:selected="${presensi.listTugas[__${iterationStatus.index}__].status == 0}" th:value="0" th:text="Dimulai"></option>
+                  <option th:selected="${presensi.listTugas[__${iterationStatus.index}__].status == 1}" th:value="1" th:text="Dikerjakan"></option>
+                  <option th:selected="${presensi.listTugas[__${iterationStatus.index}__].status == 2}" th:value="2" th:text="Selesai"></option>
+                </select>
+              </td>
+              <td>
+<!--                <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit" name="deleteRow">-->
+<!--                  Hapus-->
+<!--                </button>-->
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-primary" type="submit" name="addRow">Tambah Tugas</button>
           <br><br>
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
-  <title>BelajarBelajar</title>
+  <title>SISDM</title>
   <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"></head>-->
   <object th:include="fragments/fragment :: css" th:remove="tag"></object>
   <object th:include="fragments/fragment :: js" th:remove="tag"></object>
@@ -11,43 +11,23 @@
   <div class="card m-4 p-4">
     <div class="card-body">
       <div class="justify-content-center">
-        <h2>Update Course</h2>
+        <h2>Update Karyawan</h2>
         <br>
         <form th:action="@{/karyawan/} + ${karyawan.idKaryawan} + '/ubah'" th:object="${karyawan}" method="POST">
 
           <input type="hidden" th:field="*{idKaryawan}" />
 
-
-<!--          Nama Course: <br>-->
-<!--          <input class="form-control" type="text" name="nameCourse" th:value="*{nameCourse}"/>-->
-<!--          <br><br>-->
-
-<!--          Description: <br>-->
-<!--          <input class="form-control" type="text" name="description" th:value="*{description}"/>-->
-<!--          <br><br>-->
-
-<!--          Jumlah SKS: <br>-->
-<!--          <input required class="form-control" type="number" name="jumlahSks" th:value="*{jumlahSks}" />-->
-<!--          <br><br>-->
-
-<!--          Tanggal Dibuka: <br>-->
-<!--          <input required class="form-control" type="datetime-local" name="tanggalDimulai" th:value="*{tanggalDimulai}"/>-->
-<!--          <br><br>-->
-
-<!--          Tanggal Ditutup: <br>-->
-<!--          <input required class="form-control" type="datetime-local" name="tanggalBerakhir" th:value="*{tanggalBerakhir}"/>-->
-<!--          <br><br>-->
           Nama karyawan: <br>
-          <input class="form-control" type="text" th:value="*{namaDepan}" name="namaDepan"/>
+          <input class="form-control" type="text" th:value="${karyawan.namaDepan}" name="namaDepan"/>
 
-          <input class="form-control" type="text" th:value="*{namaBelakang}" name="namaBelakang"/>
+          <input class="form-control" type="text" th:value="${karyawan.namaBelakang}" name="namaBelakang"/>
           <br><br>
 
           Email: <br>
-          <input class="form-control" type="text" th:value="*{email}" name="email"/>
+          <input class="form-control" type="text" th:value="${karyawan.email}" name="email"/>
 
           Tanggal Lahir: <br>
-          <input required class="form-control" th:value="*{tanggalLahir}" type="date" name="tanggalLahir" />
+          <input class="form-control" th:value="${karyawan.tanggalLahir}" type="date" name="tanggalLahir" />
           <br><br>
           Jenis Kelamin
           <select name="jenisKelamin">
@@ -56,6 +36,34 @@
             <option th:value="1" th:text="Perempuan"></option>
           </select>
 
+          <br><br>
+
+          <table class="table">
+
+            <tbody>
+            <tr th:each="sertifikasiKaryawan, iterationStatus : *{listSertifikasiKaryawan}">
+              <td>
+                <select th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].id.idSertifikasi}" class="form-control">
+                  <option th:each="sertifikasi, iterationStatus2 : ${listSertifikasi}"
+                          th:value="${sertifikasi.idSertifikasi}"
+                          th:text="${sertifikasi.nama}">
+                  </option>
+                </select>
+              </td>
+              <td>
+                <input type="date" th:value="*{listSertifikasiKaryawan[__${iterationStatus.index}__].tanggalPengambilan}" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].tanggalPengambilan}">
+                <input type="text" th:value = "ABC" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].noSertifikasi}" hidden>
+              </td>
+              <td>
+                <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit" name="deleteRow">
+                  Hapus
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-primary" type="submit" name="addRow">Tambah Sertifikasi</button>
+          <br><br>
 
           <button class="btn btn-primary" type="submit" name="save">Simpan</button>
           <a class="btn btn-primary" th:href="@{/}">Batal</a>
