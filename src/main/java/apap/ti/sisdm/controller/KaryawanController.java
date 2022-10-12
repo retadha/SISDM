@@ -46,7 +46,7 @@ public class KaryawanController {
     @GetMapping("/karyawan/tambah")
     private String addKaryawanFormPage(Model model) {
         Karyawan karyawan = new Karyawan();
-        List<SertifikasiKaryawan> listSertifikasiKaryawan = sertifikasiKaryawanService.getListSertifikasiKaryawan();
+//        List<SertifikasiKaryawan> listSertifikasiKaryawan = sertifikasiKaryawanService.getListSertifikasiKaryawan();
         List<SertifikasiKaryawan> listSertifikasiKaryawanNew = new ArrayList<>();
 
         karyawan.setListSertifikasiKaryawan(listSertifikasiKaryawanNew);
@@ -60,7 +60,7 @@ public class KaryawanController {
 
         model.addAttribute("listSertifikasi", listSertifikasi);
         model.addAttribute("karyawan", karyawan);
-        model.addAttribute("listSertifikasiKaryawanExisting", listSertifikasiKaryawan);
+//        model.addAttribute("listSertifikasiKaryawanExisting", listSertifikasiKaryawan);
         return "karyawan/form-add-karyawan";
     }
 
@@ -76,12 +76,12 @@ public class KaryawanController {
 
         karyawan.getListSertifikasiKaryawan().add(sertifikasiKaryawan);
 
-        List<SertifikasiKaryawan> listSertifikasiKaryawan = sertifikasiKaryawanService.getListSertifikasiKaryawan();
+//        List<SertifikasiKaryawan> listSertifikasiKaryawan = sertifikasiKaryawanService.getListSertifikasiKaryawan();
         List<Sertifikasi> listSertifikasi = sertifikasiService.getListSertifikasi();
 
         model.addAttribute("listSertifikasi", listSertifikasi);
         model.addAttribute("karyawan", karyawan);
-        model.addAttribute("listSertifikasiKaryawanExisting", listSertifikasiKaryawan);
+//        model.addAttribute("listSertifikasiKaryawanExisting", listSertifikasiKaryawan);
 
 
         return "karyawan/form-add-karyawan";
@@ -92,12 +92,12 @@ public class KaryawanController {
         final Integer rowId = Integer.valueOf(row);
         karyawan.getListSertifikasiKaryawan().remove(rowId.intValue());
 
-        List<SertifikasiKaryawan> listSertifikasiKaryawan = sertifikasiKaryawanService.getListSertifikasiKaryawan();
+//        List<SertifikasiKaryawan> listSertifikasiKaryawan = sertifikasiKaryawanService.getListSertifikasiKaryawan();
         List<Sertifikasi> listSertifikasi = sertifikasiService.getListSertifikasi();
 
         model.addAttribute("listSertifikasi", listSertifikasi);
         model.addAttribute("karyawan", karyawan);
-        model.addAttribute("listSertifikasiKaryawanExisting", listSertifikasiKaryawan);
+//        model.addAttribute("listSertifikasiKaryawanExisting", listSertifikasiKaryawan);
 
         return "karyawan/form-add-karyawan";
     }
@@ -140,18 +140,133 @@ public class KaryawanController {
         return "karyawan/view-karyawan";
     }
 
+//    @GetMapping("/karyawan/tambah")
+//    private String addKaryawanFormPage(Model model) {
+//        Karyawan karyawan = new Karyawan();
+//        List<SertifikasiKaryawan> listSertifikasiKaryawan = sertifikasiKaryawanService.getListSertifikasiKaryawan();
+//        List<SertifikasiKaryawan> listSertifikasiKaryawanNew = new ArrayList<>();
+//
+//        karyawan.setListSertifikasiKaryawan(listSertifikasiKaryawanNew);
+//
+//        SertifikasiKaryawan sertifikasiKaryawan = new SertifikasiKaryawan();
+//        SertifikasiKaryawanId sertifikasiKaryawanId = new SertifikasiKaryawanId();
+//        sertifikasiKaryawan.setId(sertifikasiKaryawanId);
+//
+//        karyawan.getListSertifikasiKaryawan().add(sertifikasiKaryawan);
+//        List<Sertifikasi> listSertifikasi = sertifikasiService.getListSertifikasi();
+//
+//        model.addAttribute("listSertifikasi", listSertifikasi);
+//        model.addAttribute("karyawan", karyawan);
+//        model.addAttribute("listSertifikasiKaryawanExisting", listSertifikasiKaryawan);
+//        return "karyawan/form-add-karyawan";
+//    }
+
     @GetMapping("karyawan/{id}/ubah")
     public String updateKaryawanFormPage(@PathVariable String id, Model model) {
         Karyawan karyawan = karyawanService.getKaryawanById(Long.parseLong(id));
+
+        List<Sertifikasi> listSertifikasi = sertifikasiService.getListSertifikasi();
+//
+        model.addAttribute("listSertifikasi", listSertifikasi);
+        model.addAttribute("karyawan", karyawan);
+//
+
+        model.addAttribute("karyawan", karyawan);
+        return "karyawan/form-update-karyawan";
+    }
+
+    @PostMapping(value = "karyawan/{id}/ubah", params = {"addRow"})
+    private String addRowUpdateSertifikasiKaryawanMultiple(@ModelAttribute Karyawan karyawan, Model model) {
+
+        if (karyawan.getListSertifikasiKaryawan() == null || karyawan.getListSertifikasiKaryawan().size() == 0) {
+            karyawan.setListSertifikasiKaryawan(new ArrayList<>());
+
+        }
+
+        SertifikasiKaryawan sertifikasiKaryawan = new SertifikasiKaryawan();
+        SertifikasiKaryawanId sertifikasiKaryawanId = new SertifikasiKaryawanId();
+        sertifikasiKaryawan.setId(sertifikasiKaryawanId);
+
+        karyawan.getListSertifikasiKaryawan().add(sertifikasiKaryawan);
+
+        List<Sertifikasi> listSertifikasi = sertifikasiService.getListSertifikasi();
+
+        model.addAttribute("listSertifikasi", listSertifikasi);
+        model.addAttribute("karyawan", karyawan);
+
+
+        return "karyawan/form-update-karyawan";
+    }
+
+    ArrayList<SertifikasiKaryawan> removedSertifikasiList = new ArrayList<>();
+    @PostMapping(value = "karyawan/{id}/ubah", params = {"deleteRow"})
+    private String deleteRowUpdateSertifikasiKaryawanMultiple(@ModelAttribute Karyawan karyawan, @RequestParam("deleteRow") Integer row, Model model) {
+        final Integer rowId = Integer.valueOf(row);
+
+        SertifikasiKaryawan toBeRemoved = karyawan.getListSertifikasiKaryawan().get(rowId);
+        removedSertifikasiList.add(toBeRemoved);
+
+
+        karyawan.getListSertifikasiKaryawan().remove(rowId.intValue());
+
+
+
+        List<Sertifikasi> listSertifikasi = sertifikasiService.getListSertifikasi();
+
+        model.addAttribute("listSertifikasi", listSertifikasi);
         model.addAttribute("karyawan", karyawan);
 
         return "karyawan/form-update-karyawan";
     }
 
-    @PostMapping("karyawan/{id}/ubah")
+    @PostMapping(value = "karyawan/{id}/ubah", params = {"save"})
     public String updateKaryawanSubmitPage(@ModelAttribute Karyawan karyawan, Model model) {
-        Karyawan updatedKaryawan = karyawanService.updateKaryawan(karyawan);
-        model.addAttribute("karyawan", karyawan);
+        if (karyawan.getListSertifikasiKaryawan() == null || karyawan.getListSertifikasiKaryawan().size() == 0) {
+            karyawan.setListSertifikasiKaryawan(new ArrayList<>());
+
+        }
+
+        Long idKaryawan = karyawan.getIdKaryawan();
+        Karyawan searchedKaryawan = karyawanService.getKaryawanById(idKaryawan);
+
+        searchedKaryawan.setNamaDepan(karyawan.getNamaDepan());
+        searchedKaryawan.setNamaBelakang(karyawan.getNamaBelakang());
+        searchedKaryawan.setTanggalLahir(karyawan.getTanggalLahir());
+        searchedKaryawan.setJenisKelamin(karyawan.getJenisKelamin());
+        searchedKaryawan.setEmail(karyawan.getEmail());
+
+
+        for (SertifikasiKaryawan sertifikasiKaryawan: karyawan.getListSertifikasiKaryawan()) {
+
+            sertifikasiKaryawan.getId().setIdKaryawan(idKaryawan);
+            sertifikasiKaryawan.setIdKaryawan(searchedKaryawan);
+
+            Long idSertifikasi = sertifikasiKaryawan.getId().getIdSertifikasi();
+            Optional<Sertifikasi> sertifikasi = sertifikasiService.getSertifikasiById(idSertifikasi);
+
+            if (sertifikasi.isPresent()) {
+                sertifikasiKaryawan.setIdSertifikasi(sertifikasi.get());
+            }
+            sertifikasiKaryawanService.deleteSertifikasiKaryawan(sertifikasi.get(), searchedKaryawan);
+            sertifikasiKaryawanService.addSertifikasiKaryawan(sertifikasiKaryawan);
+
+        }
+
+        for (SertifikasiKaryawan sertifikasiKaryawan: removedSertifikasiList) {
+            Long idSertifikasi = sertifikasiKaryawan.getId().getIdSertifikasi();
+            Optional<Sertifikasi> sertifikasi = sertifikasiService.getSertifikasiById(idSertifikasi);
+
+            sertifikasiKaryawanService.deleteSertifikasiKaryawan(sertifikasi.get(), searchedKaryawan);
+        }
+        removedSertifikasiList.clear();
+
+        searchedKaryawan.setListSertifikasiKaryawan(karyawan.getListSertifikasiKaryawan());
+        Karyawan updatedKaryawan = karyawanService.updateKaryawan(searchedKaryawan);
+
+
+
+//        Karyawan updatedKaryawan = karyawanService.updateKaryawan(karyawan);
+        model.addAttribute("karyawan", updatedKaryawan);
 
         return "karyawan/update-karyawan";
     }

@@ -30,6 +30,14 @@ public class SertifikasiKaryawanServiceImpl implements SertifikasiKaryawanServic
         return sertifikasiKaryawanDb.save(sertifikasiKaryawan);
     }
 
+    @Override
+    public void deleteSertifikasiKaryawan(Sertifikasi idSertifikasi, Karyawan idKaryawan) {
+        sertifikasiKaryawanDb.deleteByIdSertifikasiAndIdKaryawan(idSertifikasi, idKaryawan);
+    }
+
+
+
+
 
 
 
