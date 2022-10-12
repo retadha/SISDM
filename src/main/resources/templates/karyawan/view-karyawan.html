@@ -16,8 +16,8 @@
         <h2>Detail Karyawan</h2>
         <br>
         <p th:text="'Nama: ' + *{karyawan.namaPanjang}"></p>
-        <p th:if="${karyawan.jenisKelamin == 0}" th:text="'Laki - laki'"></p>
-        <p th:if="${karyawan.jenisKelamin == 1}" th:text="'Perempuan'"></p>
+        <p th:if="${karyawan.jenisKelamin == 1}" th:text="'Laki - laki'"></p>
+        <p th:if="${karyawan.jenisKelamin == 2}" th:text="'Perempuan'"></p>
         <p th:text="'Email: ' + ${karyawan.email}"></p>
         <p th:text="'Tanggal Lahir: ' + ${#temporals.format(karyawan.tanggalLahir, 'dd MMMM yyyy')}"></p>
 

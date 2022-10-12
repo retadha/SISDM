@@ -40,7 +40,7 @@ public class Tugas implements Serializable {
 
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_presensi", nullable = false, referencedColumnName = "id_presensi")
+    @JoinColumn(name = "id_presensi", nullable = true, referencedColumnName = "id_presensi")
     private Presensi idPresensi;
 
 }

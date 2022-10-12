@@ -113,8 +113,8 @@ public class KaryawanController {
         for (SertifikasiKaryawan sertifikasiKaryawan: karyawan.getListSertifikasiKaryawan()) {
 
             sertifikasiKaryawan.getId().setIdKaryawan(idKaryawan);
-
             sertifikasiKaryawan.setIdKaryawan(savedKaryawan);
+
             Long idSertifikasi = sertifikasiKaryawan.getId().getIdSertifikasi();
             Optional<Sertifikasi> sertifikasi = sertifikasiService.getSertifikasiById(idSertifikasi);
             if (sertifikasi.isPresent()) {
