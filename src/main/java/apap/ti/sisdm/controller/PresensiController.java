@@ -2,6 +2,7 @@ package apap.ti.sisdm.controller;
 
 import apap.ti.sisdm.model.Karyawan;
 import apap.ti.sisdm.model.Presensi;
+import apap.ti.sisdm.model.SertifikasiKaryawan;
 import apap.ti.sisdm.model.Tugas;
 import apap.ti.sisdm.service.KaryawanService;
 import apap.ti.sisdm.service.PresensiService;
@@ -168,9 +169,14 @@ public class PresensiController {
         return "presensi/form-update-presensi";
     }
 
+    ArrayList<Tugas> removedTugas = new ArrayList<>();
     @PostMapping(value = "presensi/{id}/ubah", params = {"deleteRow"})
     private String deleteRowUpdateTugasMultiple(@ModelAttribute Presensi presensi, @RequestParam("deleteRow") Integer row, Model model) {
         final Integer rowId = Integer.valueOf(row);
+
+        Tugas toBeRemoved = presensi.getListTugas().get(rowId);
+        removedTugas.add(toBeRemoved);
+
         presensi.getListTugas().remove(rowId.intValue());
 
         model.addAttribute("presensi", presensi);
@@ -183,13 +189,48 @@ public class PresensiController {
 
 
 
-    @PostMapping("presensi/{id}/ubah")
+    @PostMapping(value = "presensi/{id}/ubah", params = {"save"})
     public String updatePresensiSubmitPage(@ModelAttribute Presensi presensi, Model model) {
 
-        Presensi updatedPresensi = presensiService.updatePresensi(presensi);
+        Presensi savedPresensi = presensiService.updatePresensi(presensi);
 
-        model.addAttribute("presensi", updatedPresensi);
-        model.addAttribute("karyawan", updatedPresensi.getKaryawan());
+
+        for (Tugas tugas: presensi.getListTugas()) {
+            Long idTugas = tugas.getIdTugas();
+            Integer status = tugas.getStatus();
+
+            Tugas searchedTugas = tugasService.getTugasById(idTugas);
+            searchedTugas.setIdPresensi(savedPresensi);
+
+            searchedTugas.setStatus(status);
+
+
+            tugas = searchedTugas;
+//            String searchedTugasNama = searchedTugas.getNama();
+//            String searchedTugasDeskripsi = searchedTugas.getDeskripsi();
+//            Integer searchedTugasPoint = searchedTugas.getStoryPoint();
+//
+//            tugas.setNama(searchedTugasNama);
+//            tugas.setDeskripsi(searchedTugasDeskripsi);
+//            tugas.setStoryPoint(searchedTugasPoint);
+
+
+            tugasService.updateTugas(tugas);
+        }
+
+        for (Tugas tugas: removedTugas) {
+            Long idTugas = tugas.getIdTugas();
+            Tugas searchedTugas = tugasService.getTugasById(idTugas);
+
+            tugasService.deleteTugas(searchedTugas);
+        }
+        removedTugas.clear();
+
+        savedPresensi.setListTugas(presensi.getListTugas());
+        savedPresensi = presensiService.updatePresensi(savedPresensi);
+
+        model.addAttribute("presensi", savedPresensi);
+        model.addAttribute("karyawan", savedPresensi.getKaryawan());
 
         return "presensi/update-presensi";
     }
