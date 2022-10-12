@@ -132,14 +132,51 @@ public class PresensiController {
 
         return "presensi/view-presensi";
     }
-
+    List<Tugas> listTugasToLoad;
     @GetMapping("presensi/{id}/ubah")
     public String updatePresensiFormPage(@PathVariable String id, Model model) {
         Presensi presensi = presensiService.getPresensiById(Long.parseLong(id));
 
+        listTugasToLoad = new ArrayList<>();
+
+        if (presensi.getListTugas().size() != 0) {
+            listTugasToLoad.addAll(presensi.getListTugas());
+        }
+        listTugasToLoad.addAll(tugasService.getListAvailableTugas());
+
+
+        model.addAttribute("listTugasExisting", listTugasToLoad);
+        model.addAttribute("presensi", presensi);
+        model.addAttribute("karyawan", presensi.getKaryawan());
+
+        return "presensi/form-update-presensi";
+    }
+
+    @PostMapping(value = "presensi/{id}/ubah", params = {"addRow"})
+    private String addRowUpdateTugasMultiple(@ModelAttribute Presensi presensi, Model model) {
+        if (presensi.getListTugas() == null || presensi.getListTugas().size() == 0) {
+            presensi.setListTugas(new ArrayList<>());
+        }
+
+        presensi.getListTugas().add(new Tugas());
 
         model.addAttribute("presensi", presensi);
         model.addAttribute("karyawan", presensi.getKaryawan());
+        model.addAttribute("listTugasExisting", listTugasToLoad);
+
+
+        return "presensi/form-update-presensi";
+    }
+
+    @PostMapping(value = "presensi/{id}/ubah", params = {"deleteRow"})
+    private String deleteRowUpdateTugasMultiple(@ModelAttribute Presensi presensi, @RequestParam("deleteRow") Integer row, Model model) {
+        final Integer rowId = Integer.valueOf(row);
+        presensi.getListTugas().remove(rowId.intValue());
+
+        model.addAttribute("presensi", presensi);
+        model.addAttribute("karyawan", presensi.getKaryawan());
+        model.addAttribute("listTugasExisting", listTugasToLoad);
+
 
         return "presensi/form-update-presensi";
     }

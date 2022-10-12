@@ -48,14 +48,17 @@
             <tr th:each="tugas, iterationStatus : *{listTugas}">
               <td>
                 <select th:field="*{listTugas[__${iterationStatus.index}__].idTugas}" class="form-control">
-                  <option th:each="tugasEx, iterationStatus2 : ${listTugasExisting}" th:value="${tugasEx.idTugas}" th:text="${tugasEx.nama}"></option>
+                  <option th:each="tugasEx, iterationStatus2 : ${listTugasExisting}"
+                          th:value="${tugasEx.idTugas}"
+                          th:text="${tugasEx.nama}">
+                  </option>
                 </select>
               </td>
               <td>
                 <select th:field="*{listTugas[__${iterationStatus.index}__].status}" class="form-control">
-                  <option th:value="0" th:text="Dimulai"></option>
-                  <option th:value="1" th:text="Dikerjakan"></option>
-                  <option th:value="2" th:text="Selesai"></option>
+                  <option th:selected="${presensi.listTugas[__${iterationStatus.index}__].status == 0}" th:value="0" th:text="Dimulai"></option>
+                  <option th:selected="${presensi.listTugas[__${iterationStatus.index}__].status == 1}" th:value="1" th:text="Dikerjakan"></option>
+                  <option th:selected="${presensi.listTugas[__${iterationStatus.index}__].status == 2}" th:value="2" th:text="Selesai"></option>
                 </select>
               </td>
               <td>
