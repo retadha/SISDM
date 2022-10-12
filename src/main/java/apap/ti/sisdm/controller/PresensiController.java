@@ -83,6 +83,9 @@ public class PresensiController {
 
             tugasService.updateTugas(tugas);
         }
+        savedPresensi.setListTugas(presensi.getListTugas());
+        savedPresensi = presensiService.updatePresensi(savedPresensi);
+
         model.addAttribute("presensi", presensi);
         model.addAttribute("karyawan", presensi.getKaryawan());
 
